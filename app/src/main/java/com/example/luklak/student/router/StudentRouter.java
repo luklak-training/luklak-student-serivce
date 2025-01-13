@@ -25,6 +25,7 @@ public class StudentRouter {
     final Router bookRouter = Router.router(vertx);
 
     bookRouter.route("/students*").handler(BodyHandler.create());
+    bookRouter.get("/students/hello").handler(LoggerHandler.create(LoggerFormat.DEFAULT)).handler(HTTPStudentHandler::hello);
     bookRouter.post("/students").handler(LoggerHandler.create(LoggerFormat.DEFAULT)).handler(HTTPStudentHandler::create);
     bookRouter.get("/students").handler(LoggerHandler.create(LoggerFormat.DEFAULT)).handler(HTTPStudentHandler::listing);
     return bookRouter;

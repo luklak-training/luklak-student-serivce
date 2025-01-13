@@ -10,12 +10,24 @@ import io.vertx.ext.web.RoutingContext;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 @AllArgsConstructor
 public class HTTPStudentHandler {
   @NonNull
   private final IStudentService studentService;
+
+  public CompletionStage<String> hello(RoutingContext rc) {
+    return CompletableFuture.completedStage("Xin chao")
+      .whenComplete((item, err) -> {
+        if (err != null) {
+          ResponseEntity.buildFailResponse(rc, err);
+        } else {
+          ResponseEntity.buildSuccessResponse(rc, item);
+        }
+      });
+  }
 
   public CompletionStage<StudentResponse> create(RoutingContext rc) {
     final Student student = rc.body().asPojo(Student.class);

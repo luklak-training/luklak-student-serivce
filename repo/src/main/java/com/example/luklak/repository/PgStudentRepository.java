@@ -19,28 +19,13 @@ import java.util.concurrent.CompletionStage;
 public class PgStudentRepository implements IStudentRepository {
   @NonNull
   private final PgPool dbClient;
-  private static final String SQL_INSERT = """
-    INSERT INTO
-    students (name, age)
-    VALUES (#{name}, #{age})
-    RETURNING id
-    """;
+  private static final String SQL_INSERT = "INSERT INTO students (name, age) VALUES (#{name}, #{age}) RETURNING id";
 
-  private static final String SQL_COUNT = """
-    SELECT COUNT(*) AS total
-     FROM students
-     """;
+  private static final String SQL_COUNT = "SELECT COUNT(*) AS total FROM students";
 
-  private static final String SQL_SELECT_ALL = """
-    SELECT * FROM students
-    LIMIT #{limit}
-    OFFSET #{offset}
-    """;
+  private static final String SQL_SELECT_ALL = "SELECT * FROM students LIMIT #{limit} OFFSET #{offset}";
 
-  private static final String SQL_DELETE = """
-    DELETE FROM students
-    WHERE id = #{id}
-    """;
+  private static final String SQL_DELETE = "DELETE FROM students WHERE id = #{id}";
 
 
   public CompletionStage<Student> insert(Student student) {
