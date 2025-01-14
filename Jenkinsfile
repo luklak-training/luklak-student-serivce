@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = 'dockerhub-thanh5320'
+        DOCKERHUB_CREDENTIALS = 'dockerhub'
         DOCKER_IMAGE = 'luklak-test/service-app'
     }
 
