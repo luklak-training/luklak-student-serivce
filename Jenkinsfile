@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub'
-        DOCKER_IMAGE = 'luklak-test/service-app'
+        DOCKER_IMAGE = 'luklak-service-app'
     }
 
     stages {
