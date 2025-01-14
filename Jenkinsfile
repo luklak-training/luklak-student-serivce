@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub'
         DOCKER_IMAGE = 'luklak-service-app'
+        VERSION = "${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -18,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Tạo tag phiên bản dựa trên số build
-                    VERSION = "${env.BUILD_NUMBER}" // Số build tự động của Jenkins
+                    VERSION1 = "${env.BUILD_NUMBER}" // Số build tự động của Jenkins
                     echo "Image version: ${VERSION}"
                 }
             }
