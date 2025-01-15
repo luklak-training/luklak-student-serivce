@@ -18,8 +18,7 @@ pipeline {
         stage('Determine Version') {
             steps {
                 script {
-                    // Tạo tag phiên bản dựa trên số build
-                    VERSION1 = "${env.BUILD_NUMBER}" // Số build tự động của Jenkins
+                    VERSION1 = "${env.BUILD_NUMBER}"
                     echo "Image version: ${VERSION}"
                 }
             }
@@ -35,8 +34,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                echo "Image version: ${VERSION}"
-                sh 'docker build -t ${DOCKER_IMAGE}:${VERSION} .'
+                sh 'docker build -t $DOCKER_USERNAME/${DOCKER_IMAGE}:${VERSION} .'
             }
         }
 
@@ -54,7 +52,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 echo 'Pushing Docker image to Docker Hub...'
-                sh 'docker push ${DOCKER_IMAGE}:${VERSION}'
+                sh 'docker push $DOCKER_USERNAME/${DOCKER_IMAGE}:${VERSION}'
             }
         }
     }
@@ -62,7 +60,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up Docker images...'
-            sh 'docker rmi ${DOCKER_IMAGE}:${VERSION} || true'
+            sh 'docker rmi $DOCKER_USERNAME/${DOCKER_IMAGE}:${VERSION} || true'
         }
 
         success {
