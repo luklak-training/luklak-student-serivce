@@ -5,6 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = 'dockerhub'
         DOCKER_IMAGE = 'luklak-service-app'
         VERSION = "${env.BUILD_NUMBER}"
+        DOCKER_USERNAME = 'thanh5320'
     }
 
     stages {
