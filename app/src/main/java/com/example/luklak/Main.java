@@ -25,6 +25,7 @@ public class Main {
 
   @SneakyThrows
   public static void main(String[] args) {
+    // test
 //    Config hazelcastConfig = new Config();
 //    hazelcastConfig.setConfigurationFile(new File("config/hazelcast.yaml"));
 //    Config hazelcastConfig = Config.loadFromFile(new File("config/hazelcast.yaml"));
