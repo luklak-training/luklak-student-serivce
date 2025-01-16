@@ -1,13 +1,14 @@
 FROM openjdk:17-jdk-slim
 
-ENV VERTICLE_FILE app-1.0.0-SNAPSHOT-fat.jar
+ENV FILE app-1.0.0-SNAPSHOT-fat.jar
 
-ENV VERTICLE_HOME /usr/verticles
+ENV HOME /app
 
 EXPOSE 8888
 
-COPY app/target/$VERTICLE_FILE $VERTICLE_HOME/
+COPY app/target/$FILE $HOME/
+COPY config/hazelcast.yaml $HOME/config/
 
-WORKDIR $VERTICLE_HOME
+WORKDIR $HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -jar $VERTICLE_FILE"]
+CMD ["exec java -Dhazelcast.config=$HOME/config/hazelcast.yaml -jar $FILE"]
