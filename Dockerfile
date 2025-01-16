@@ -11,4 +11,4 @@ COPY config/hazelcast.yaml $HOME/config/
 
 WORKDIR $HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -Dhazelcast.config=$HOME/config/hazelcast.yaml -jar $FILE"]
+CMD ["exec java -jar $FILE"]

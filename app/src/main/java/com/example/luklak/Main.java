@@ -2,14 +2,18 @@ package com.example.luklak;
 
 import com.example.luklak.verticle.MainVerticle;
 import com.hazelcast.config.Config;
+import com.hazelcast.config.FileSystemXmlConfig;
+import com.hazelcast.config.FileSystemYamlConfig;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBusOptions;
 import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -19,8 +23,12 @@ import java.util.List;
 @Slf4j
 public class Main {
 
+  @SneakyThrows
   public static void main(String[] args) {
-    Config hazelcastConfig = new Config();
+//    Config hazelcastConfig = new Config();
+//    hazelcastConfig.setConfigurationFile(new File("config/hazelcast.yaml"));
+//    Config hazelcastConfig = Config.loadFromFile(new File("config/hazelcast.yaml"));
+    Config hazelcastConfig = new FileSystemYamlConfig("config/hazelcast.yaml");
     ClusterManager mgr
       = new HazelcastClusterManager(hazelcastConfig);
     VertxOptions options = new VertxOptions()
