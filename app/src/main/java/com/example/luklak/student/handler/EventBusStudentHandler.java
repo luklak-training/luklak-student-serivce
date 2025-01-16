@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
+import java.util.concurrent.CompletableFuture;
+
 @AllArgsConstructor
 public class EventBusStudentHandler {
   @NonNull
@@ -40,14 +42,21 @@ public class EventBusStudentHandler {
 
   @SneakyThrows
   public void handleRoutes(Message<Object> message, String path, String method, JsonObject body) {
-    if (path.equals("/api/v1/students/delete") && method.equals("POST")) {
-      int id = body.getInteger("id");
-      studentService.delete(id).whenComplete((item, err) -> {
+//    if (path.equals("/api/v1/students/delete") && method.equals("POST")) {
+//      int id = body.getInteger("id");
+//      studentService.delete(id).whenComplete((item, err) -> {
+//        if (err != null) {
+//          message.fail(500, err.getMessage());
+//        }
+//        message.reply(Json.encode("success"));
+//      });
+//    }
+    CompletableFuture.completedFuture("Xin chao")
+      .whenComplete((item, err) -> {
         if (err != null) {
           message.fail(500, err.getMessage());
         }
-        message.reply(Json.encode("success"));
+        message.reply(Json.encode(item));
       });
-    }
   }
 }
