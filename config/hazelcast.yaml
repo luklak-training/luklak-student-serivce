@@ -7,4 +7,7 @@ hazelcast:
         enabled: true
         namespace: default
         service-name: hazelcast-service
+    port:
+      port: 5701        # Thêm phần này để đảm bảo port
+      auto-increment: true
   cluster-name: my-hazelcast-cluster
