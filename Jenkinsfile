@@ -7,8 +7,8 @@ pipeline {
         VERSION = "${env.BUILD_NUMBER}"
         DOCKER_USERNAME = 'thanh5320'
         GIT_CREDENTIALS = 'github' // ID của credentials để push code Git
-        HELM_REPO = 'git@github.com:luklak-training/helm-luklak-api.git' // URL repo Helm của bạn
-        HELM_CHART_PATH = 'helm-luklak-api' // Đường dẫn đến chart Helm trong repo
+        HELM_REPO = 'https://github.com/luklak-training/luklak-student-serivce.git' // URL repo Helm của bạn
+        HELM_CHART_PATH = 'helm-luklak-student-service' // Đường dẫn đến chart Helm trong repo
     }
 
     stages {
