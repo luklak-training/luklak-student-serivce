@@ -69,7 +69,6 @@ pipeline {
                                                       passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
                         git clone $HELM_REPO
-                        cd ${HELM_CHART_PATH}
                         sed -i 's/^\\(.*image:.*tag:.*\\)\\:.*/\\1: ${VERSION}/' values.yaml
                         git config user.name "Jenkins"
                         git config user.email "thanhnv@jenkins.com"
