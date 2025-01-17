@@ -6,6 +6,9 @@ pipeline {
         DOCKER_IMAGE = 'luklak-service-app'
         VERSION = "${env.BUILD_NUMBER}"
         DOCKER_USERNAME = 'thanh5320'
+        GIT_CREDENTIALS = 'github' // ID của credentials để push code Git
+        HELM_REPO = 'git@github.com:luklak-training/helm-luklak-api.git' // URL repo Helm của bạn
+        HELM_CHART_PATH = 'helm-luklak-api' // Đường dẫn đến chart Helm trong repo
     }
 
     stages {
@@ -54,6 +57,28 @@ pipeline {
             steps {
                 echo 'Pushing Docker image to Docker Hub...'
                 sh 'docker push $DOCKER_USERNAME/${DOCKER_IMAGE}:${VERSION}'
+            }
+        }
+
+        stage('Update Helm Values') {
+            steps {
+                script {
+                    echo 'Updating Helm values.yaml...'
+                    withCredentials([usernamePassword(credentialsId: GIT_CREDENTIALS,
+                                                      usernameVariable: 'GIT_USERNAME',
+                                                      passwordVariable: 'GIT_PASSWORD')]) {
+                        sh """
+                        git clone $HELM_REPO
+                        cd ${HELM_CHART_PATH}
+                        sed -i 's/^\\(.*image:.*tag:.*\\)\\:.*/\\1: ${VERSION}/' values.yaml
+                        git config user.name "Jenkins"
+                        git config user.email "thanhnv@jenkins.com"
+                        git add values.yaml
+                        git commit -m "Update image tag to ${VERSION}"
+                        git push https://$GIT_USERNAME:$GIT_PASSWORD@$HELM_REPO
+                        """
+                    }
+                }
             }
         }
     }
