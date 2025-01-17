@@ -68,13 +68,13 @@ pipeline {
                                                       usernameVariable: 'GIT_USERNAME',
                                                       passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
-                        if [ -d "luklak-student-serivce" ]; then
-                            cd luklak-student-serivce
+                        if [ -d "helm-luklak-student-service" ]; then
+                            cd helm-luklak-student-service
                             git reset --hard
                             git clean -fd
                             git pull
                         else
-                            git clone https://github.com/luklak-training/luklak-student-serivce.git
+                            git clone ${HELM_REPO}
                         fi
                         sed -i 's/^\\(.*image:.*tag:.*\\)\\:.*/\\1: ${VERSION}/' values.yaml
                         git config user.name "Jenkins"
