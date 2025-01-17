@@ -77,7 +77,7 @@ pipeline {
                             git clone ${HELM_REPO}
                             cd helm-luklak-student-service
                         fi
-                        sed -i 's/^\\(.*image:.*tag:.*\\)\\:.*/\\1: ${VERSION}/' values.yaml
+                        sed -i 's/^\(\s*tag:\s*\).*/\1'"${VERSION}"'/' values.yaml
                         git config user.name "Jenkins"
                         git config user.email "thanhnv@jenkins.com"
                         git add values.yaml
